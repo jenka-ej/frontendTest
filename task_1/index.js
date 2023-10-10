@@ -6,7 +6,7 @@ console.log(encoded, translations)
 const decode = (encoded, translations) => {
     const exceptions = ['groupId', 'service', 'formatSize', 'ca'];
     const ids = [];
-    const translate = encoded.map((item) => {
+    const decodedInfo = encoded.map((item) => {
         const keys = Object.keys(item);
         const newItem = keys.reduce((acc, key) => {
             const value = item[key];
@@ -25,9 +25,9 @@ const decode = (encoded, translations) => {
         }, {});
         return newItem;
     });
-    console.log(translate);
-    const decodeKeys = Object.keys(translations);
-    const uniqueIds = ids.filter((id) => !decodeKeys.includes(id));
+    console.log(decodedInfo);
+    const decodedKeys = Object.keys(translations);
+    const uniqueIds = ids.filter((id) => !decodedKeys.includes(id));
     return [...new Set(uniqueIds)];
 };
 
