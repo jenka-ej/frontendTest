@@ -25,12 +25,13 @@ const decode = (encoded, translations) => {
         }, {});
         return newItem;
     });
+    console.log('\n Decoded info here \n');
     console.log(decodedInfo);
-    const decodedKeys = Object.keys(translations);
-    const uniqueIds = ids.filter((id) => !decodedKeys.includes(id));
-    return [...new Set(uniqueIds)];
+    const uniqueIds = [...new Set(ids)];
+    return uniqueIds;
 };
 
 const decoded = decode(encoded, translations);
 
+console.log('\n Hot unique ids down below o_O \n');
 console.log(decoded);
