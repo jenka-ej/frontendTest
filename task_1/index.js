@@ -3,7 +3,7 @@ import {encoded, translations} from './data.js'
 console.log("Let's rock")
 console.log(encoded, translations)
 
-const decoded = () => {
+const decode = (encoded, translations) => {
     const exceptions = ['groupId', 'service', 'formatSize', 'ca'];
     const ids = [];
     const translate = encoded.map((item) => {
@@ -31,4 +31,6 @@ const decoded = () => {
     return [...new Set(uniqueIds)];
 };
 
-console.log(decoded());
+const decoded = decode(encoded, translations);
+
+console.log(decoded);
