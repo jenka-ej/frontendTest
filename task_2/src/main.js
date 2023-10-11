@@ -7,7 +7,6 @@ const directConvert = async () => {
   const baseCurrencyValue = baseCurrency.value;
   const finalCurrencyValue = finalCurrency.value;
   const amountInputValue = amountInput.value;
-
   
   try {
     const response = await fetch(`https://open.er-api.com/v6/latest/${baseCurrencyValue}`);
