@@ -4,7 +4,7 @@
   let amountInput = 0;
   let amountOutput = 0;
 
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = '412ab28c48d50813a8259807';
 
   function convert(type) {
     let url;
