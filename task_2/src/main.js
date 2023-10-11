@@ -29,7 +29,7 @@ function reverseConvert() {
     .then((response) => response.json())
     .then((data) => {
       const exchangeRate = data.conversion_rates[baseCurrencyValue];
-      const convertedAmount = amountOutputValue / exchangeRate;
+      const convertedAmount = amountOutputValue * exchangeRate;
       amountInput.value = Number(convertedAmount.toFixed(2));
     })
     .catch((err) => {
