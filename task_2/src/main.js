@@ -40,4 +40,4 @@ function reverseConvert() {
 baseCurrency.addEventListener("change", convertCurrency);
 finalCurrency.addEventListener("change", convertCurrency);
 amountInput.addEventListener("input", directConvert);
-amountInput.addEventListener("input", reverseConvert);
+amountOutput.addEventListener("input", reverseConvert);
