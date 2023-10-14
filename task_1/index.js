@@ -25,7 +25,7 @@ const decode = (encoded, translations) => {
         }, {});
         return newItem;
     });
-    console.log('\n Decoded info here \n');
+    console.log('\n Decoded info here down below \n');
     console.log(decodedInfo);
     const uniqueIds = [...new Set(ids)];
     return uniqueIds;
