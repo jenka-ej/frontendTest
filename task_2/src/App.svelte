@@ -3,37 +3,44 @@
   let finalCurrency = 'RUB';
   let amountInput = 0;
   let amountOutput = 0;
+  let directRate = 1;
+  let reverseRate = 1;
 
   const apiKey = '412ab28c48d50813a8259807';
+  
+  async function changeRate() {
+    const directUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${baseCurrency}`;
+    const reverseUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${finalCurrency}`;
 
-  function convert(type) {
-    let url;
-    if (type === 'direct') {
-      url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${baseCurrency}/${finalCurrency}/${amountInput}`;
-    } else {
-      url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${finalCurrency}/${baseCurrency}/${amountOutput}`;
-    }
+    const [directData, reverseData] = await Promise.all([
+      fetch(directUrl).then((response) => response.json()), 
+      fetch(reverseUrl).then((response) => response.json()),
+    ]);
     
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const result = data.conversion_result;
-        if (type === 'direct') {
-	  amountOutput = Number(result.toFixed(1));
-        } else {
-	  amountInput = Number(result.toFixed(1));
-        }
-      })
-      .catch((err) => console.log(err));
-  }  
+    directRate = directData.conversion_rates[finalCurrency];
+    reverseRate = reverseData.conversion_rates[baseCurrency];
+    const directResult = amountInput * directRate;
+    amountOutput = Number(directResult.toFixed(2));
+  }
+
+  function changeInput(type) {
+    if (type === 'direct') {
+      const directResult = amountInput * directRate;
+      amountOutput = Number(directResult.toFixed(2));
+    } else {
+      const reverseResult = amountOutput * reverseRate;
+      amountInput = Number(reverseResult.toFixed(2));
+    }
+  }
 </script>
 
 <main>
   <h1>Сервис для конвертации валют</h1>
-  
+
   <div class="form-group">
-    <label for="baseCurrency">Исходная валюта:</label>
-    <select id="baseCurrency" bind:value={baseCurrency}>
+    <label for="amountInput">Сумма конвертации:</label>
+    <input type="number" bind:value={amountInput} on:change={() => changeInput('direct')} id="amountInput" min="0" />
+    <select id="baseCurrency" bind:value={baseCurrency} on:change={changeRate}>
       <option value="RUB">RUB</option>
       <option value="USD">USD</option>
       <option value="EUR">EUR</option>
@@ -44,8 +51,9 @@
   </div>
 
   <div class="form-group">
-    <label for="finalCurrency">Итоговая валюта:</label>
-    <select id="finalCurrency" bind:value={finalCurrency}>
+    <label for="amountOutput">Результат конвертации:</label>
+    <input type="number" bind:value={amountOutput} on:change={() => changeInput('reverse')} id="amountOutput" min="0" />
+    <select id="finalCurrency" bind:value={finalCurrency} on:change={changeRate}>
       <option value="RUB">RUB</option>
       <option value="USD">USD</option>
       <option value="EUR">EUR</option>
@@ -53,16 +61,6 @@
       <option value="KZT">KZT</option>
       <option value="ETB">ETB</option>
     </select>
-  </div>
-  
-  <div class="form-group">
-    <label for="amountInput">Сумма конвертации:</label>
-    <input type="number" bind:value={amountInput} on:change={() => convert('direct')} id="amountInput" min="0" step="0.1" />
-  </div>
- 
-  <div class="form-group">
-    <label for="amountOutput">Результат конвертации:</label>
-    <input type="number" bind:value={amountOutput} on:change={() => convert('reverse')} id="amountOutput" min="0" step="0.1" />
   </div>
 </main>
 
