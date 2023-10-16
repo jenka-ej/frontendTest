@@ -1,10 +1,10 @@
-<script>
-  let baseCurrency = 'RUB';
-  let finalCurrency = 'RUB';
-  let amountInput = 0;
-  let amountOutput = 0;
-  let directRate = 1;
-  let reverseRate = 1;
+<script lang="ts">
+  let baseCurrency: string = 'RUB';
+  let finalCurrency: string = 'RUB';
+  let amountInput: number = 0;
+  let amountOutput: number = 0;
+  let directRate: number = 1;
+  let reverseRate: number = 1;
 
   const apiKey = '412ab28c48d50813a8259807';
   
@@ -20,18 +20,18 @@
     directRate = directData.conversion_rates[finalCurrency];
     reverseRate = reverseData.conversion_rates[baseCurrency];
     const directResult = amountInput * directRate;
-    amountOutput = Number(directResult.toFixed(2));
+    amountOutput = directResult.toFixed(2);
   }
 
-  function changeInput(type) {
+  const changeInput = (type: string) => {
     if (type === 'direct') {
       const directResult = amountInput * directRate;
-      amountOutput = Number(directResult.toFixed(2));
+      amountOutput = directResult.toFixed(2);
     } else {
       const reverseResult = amountOutput * reverseRate;
-      amountInput = Number(reverseResult.toFixed(2));
+      amountInput = reverseResult.toFixed(2);
     }
-  }
+  };
 </script>
 
 <main>
