@@ -7,6 +7,11 @@
   let reverseRate: number = 1;
 
   const apiKey = '412ab28c48d50813a8259807';
+
+  function validNumber(num: number): number {
+    console.log(Math.abs(num), amountInput, amountOutput);
+    return Math.abs(num);
+  }
   
   async function changeRate() {
     const directUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${baseCurrency}`;
@@ -24,6 +29,8 @@
   }
 
   const changeInput = (type: string) => {
+    amountInput = Math.abs(amountInput);
+    amountOutput = Math.abs(amountOutput);
     if (type === 'direct') {
       const directResult = amountInput * directRate;
       amountOutput = directResult.toFixed(2);
