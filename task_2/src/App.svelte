@@ -41,7 +41,7 @@
 
   <div class="form-group">
     <label for="amountInput">Сумма конвертации:</label>
-    <input type="number" bind:value={amountInput} on:input={() => changeInput('direct')} id="amountInput" min="0" />
+    <input type="number" bind:value={amountInput} on:input={() => changeInput('direct')} onclick="this.select()" id="amountInput" min="0" />
     <select id="baseCurrency" bind:value={baseCurrency} on:change={changeRate}>
       <option value="RUB">RUB</option>
       <option value="USD">USD</option>
@@ -54,7 +54,7 @@
 
   <div class="form-group">
     <label for="amountOutput">Результат конвертации:</label>
-    <input type="number" bind:value={amountOutput} on:input={() => changeInput('reverse')} id="amountOutput" min="0" />
+    <input type="number" bind:value={amountOutput} on:input={() => changeInput('reverse')} onclick="this.select()" id="amountOutput" min="0" />
     <select id="finalCurrency" bind:value={finalCurrency} on:change={changeRate}>
       <option value="RUB">RUB</option>
       <option value="USD">USD</option>
